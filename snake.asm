@@ -438,34 +438,25 @@ mul ch
 add ax, dx
 mov cx, ax
 
-; Generate random X and Y position
-mov ax, cx
-xor dx, dx
-mov bx,39
-div bx
-xor ah,ah
-shl ax,3
-mov [apple_x], ax
+; Generate random X and Y position, grid-aligned to the snake's 13px step
 mov ax, cx
 xor dx, dx
 mov bx,24
 div bx
-xor ah,ah
-shl ax,3
+mov ax,dx
+mov bx,13
+mul bx
+add ax,5
+mov [apple_x], ax
+mov ax, cx
+xor dx, dx
+mov bx,15
+div bx
+mov ax,dx
+mov bx,13
+mul bx
+add ax,9
 mov [apple_y], ax
-cmp [apple_y],180
-jl conti
-mov [apple_y],160
-cmp [apple_y],26
-jg conti
-mov [apple_y],70
-cmp [apple_x],297
-jl conti
-sub [apple_x],20
-cmp [apple_x],19
-jg conti
-add [apple_x],17
-conti:
 mov ax,[apple_x]
 mov [prev_apple_x],ax
 mov ax,[apple_y]
